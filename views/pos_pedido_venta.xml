@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="pedidos_ventas_view_form" model="ir.ui.view">
+        <field name="name">pedidos.ventas.view.form</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='amount_paid']" position="after">
+                <field name="total_usd" string="USD" widget="monetary"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="pedidos_ventas_view_tree" model="ir.ui.view">
+        <field name="name">pedidos.ventas.view.tree</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='amount_total']" position="after">
+                <field name="total_usd" sum="Amount total" string="USD"/>
+                <field name="currency_rate_order" sum="Amount total" string="Currency rate" invisible="True"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="pedidos_ventas_view_pivot" model="ir.ui.view">
+        <field name="name">pedidos.ventas.view.pivot</field>
+        <field name="model">report.pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_report_pos_order_pivot"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='price_total']" position="after">
+                <field name="price_usd"  type="measure"/>
+                <field name="currency_rate"  type="measure" invisible="True"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

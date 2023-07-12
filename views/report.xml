@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="detalles_de_ventas_custom" inherit_id="point_of_sale.report_saledetails">
+            <!--lineas de pedidos-->
+            <xpath expr="//div[@class='page']//table[@class='table table-sm']/thead/tr" position="inside">
+                <th>  USD</th>
+            </xpath>
+
+            <xpath expr="//div[@class='page']//table/tbody/tr" position="inside">
+                <th>
+                    <t t-esc="line['price_unit']*line['currency_rate']" t-options="{'widget': 'float', 'precision': currency_precision}"/>
+                </th>
+            </xpath>
+            <!--end-->
+
+            <!--pagos-->
+            <xpath expr="//div[@class='page']//table[2][@class='table table-sm']/thead/tr" position="inside">
+                <th>  USD</th>
+            </xpath>
+
+            <xpath expr="//div[@class='page']//table[2]/tbody/tr" position="inside">
+                <th>
+                    <t t-esc="payment['amount_currency']" t-options="{'widget': 'float', 'precision': currency_precision}"/>
+                </th>
+            </xpath>
+            <!--end-->
+
+            <!-- total-->
+            <xpath expr="//div[@class='page']//table[3]" position="after">
+                <strong>Total USD: <t t-esc="total_currency_paid" t-options="{'widget': 'float', 'precision': currency_precision}"/></strong>
+            </xpath>
+            <!--end-->
+        </template>
+    </data>
+</odoo>
